@@ -1,12 +1,18 @@
 import {useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { addToList } from '../context/TaskSlice';
 
 const Form = () => {
+    const state = useSelector(state=>state.tasks);
+    const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
 
     const addTask = (e)=>{
         e.preventDefault();
-        console.log(title,desc)
+        dispatch(addToList({title,desc}));
+        setTitle('')
+        setDesc('')
     }
 
     return (

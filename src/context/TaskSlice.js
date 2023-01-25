@@ -8,8 +8,8 @@ const TaskSlice = createSlice({
     },
     reducers: {
         addToList: (state, actions) => {
-            const id = Math.random * 10000;
-            const task = { ...actions.payload, id };
+            const id = Math.floor(Math.random() * 1000);
+            const task = { ...actions.payload, id};
             state.taskList.push(task)
         },
         removeFromList: (state, actions) => {

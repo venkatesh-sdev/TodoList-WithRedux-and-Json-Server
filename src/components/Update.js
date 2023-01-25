@@ -1,12 +1,25 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateList } from "../context/TaskSlice";
 
 export default function Modal({ setShowModal, showModal }) {
+
+    const state = useSelector(state => state.tasks.selectedTask)
+    const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
+    
+    useEffect(() => {
+        if (Object.keys(state).length !== 0) {
+            setTitle(state.title);
+            setDesc(state.desc);
+        }
+    }, [state])
 
     const updateTask = (e) => {
         e.preventDefault();
-        setShowModal(false)
+        dispatch(updateList({ title, desc, id: state.id }))
+        setShowModal(false);
     }
     return (
         <Fragment>
